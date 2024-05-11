@@ -15,9 +15,10 @@ export const authroutes = [
 
 export const panelChildren = [
     {
-      path: "",
+      path: "users",
       element: <Users />,
       icon: <ManageAccountsIcon />,
-      inNav: false,
+      inNav: true,
     },
+    
   ];
