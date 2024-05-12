@@ -120,7 +120,7 @@ export default function Panel() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  console.log({ isMobile });
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu

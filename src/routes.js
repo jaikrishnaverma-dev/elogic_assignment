@@ -1,7 +1,6 @@
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import UserTable from "./components/panel/UserTable";
-import Users from "./components/panel/pages/Users";
+import Users from "./components/panel/pages/users_list/Users";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 export const authroutes = [
     {
@@ -23,7 +22,7 @@ export const panelChildren = [
     },
     {
       path: "x",
-      element: <UserTable />,
+      element: <Users />,
       icon: <ManageAccountsIcon />,
       inNav: true,
     },
