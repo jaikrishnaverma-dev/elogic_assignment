@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Typography } from "@mui/material";
 import UserForm from "../../../common/UserForm";
-import ImageUpload from "../../../common/ImageUpload";
 
 const style = {
   position: "absolute",
@@ -17,7 +16,8 @@ const style = {
   p: 4,
 };
 
-export default function CreateUser({ open, handleClose,onFileSelect}) {
+export default function EditUser({ open, handleClose, id }) {
+    
   return (
     <Modal
       open={open}
@@ -26,8 +26,14 @@ export default function CreateUser({ open, handleClose,onFileSelect}) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography level="h1" fontFamily={"sans-serif"} sx={{fontSize:22,mb:3,fontWeight:700,textAlign:"center"}}>Create User Form</Typography>
-        <UserForm callBack={handleClose} />
+        <Typography
+          level="h1"
+          fontFamily={"sans-serif"}
+          sx={{ fontSize: 22, mb: 3, fontWeight: 700, textAlign: "center" }}
+        >
+          Update User Form
+        </Typography>
+        <UserForm callBack={handleClose} id={id} />
       </Box>
     </Modal>
   );

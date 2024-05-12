@@ -17,7 +17,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import {  Badge, MenuItem } from "@mui/material";
+import { Badge, MenuItem } from "@mui/material";
 import useMediaQuery from "../../hooks/useMediaQuery.js";
 import { panelChildren } from "../../routes.js";
 import { toTitleCase } from "../../utils/tools.js";
@@ -27,6 +27,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { DataGrid } from "@mui/x-data-grid-pro";
+import CustomSeparator from "../common/BreadCrumbs.jsx";
+import { logOut } from "../../features/mainSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -76,14 +79,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Panel() {
   const theme = useTheme();
+  const { session } = useSelector((data) => data.mainSlice);
   const isMobile = useMediaQuery("(max-width: 600px)");
-
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(!isMobile);
-
-  React.useEffect(() => {
-    setOpen(!isMobile);
-  }, [isMobile]);
   const navigate = useNavigate();
+  let location = useLocation();
+  let currentPath = location?.pathname.split("/");
+  if (currentPath.length) currentPath = currentPath[currentPath.length - 1];
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -91,16 +96,6 @@ export default function Panel() {
   const handleDrawerClose = () => {
     isMobile && setOpen(false);
   };
-  let location = useLocation();
-  let currentPath = location?.pathname.split("/");
-  if (currentPath.length) currentPath = currentPath[currentPath.length - 1];
-
-  /**
-   * here have to write auth code
-   */
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -120,7 +115,12 @@ export default function Panel() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
+  React.useEffect(() => {
+    setOpen(!isMobile);
+  }, [isMobile]);
+  React.useEffect(() => {
+    if (session == null) navigate("/");
+  }, [session]);
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -138,8 +138,22 @@ export default function Panel() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/user_management/profile");
+          handleMenuClose();
+        }}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          dispatch(logOut());
+          handleMenuClose();
+        }}
+      >
+        LogOut
+      </MenuItem>
     </Menu>
   );
 
@@ -322,6 +336,7 @@ export default function Panel() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        <CustomSeparator location={location?.pathname.split("/")} />
         <Outlet />
       </Main>
     </Box>

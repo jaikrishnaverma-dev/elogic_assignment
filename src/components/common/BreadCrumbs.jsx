@@ -1,32 +1,30 @@
-import * as React from 'react';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-
+import * as React from "react";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { toTitleCase } from "../../utils/tools";
+import HomeIcon from "@mui/icons-material/Home";
 function handleClick(event) {
   event.preventDefault();
-  console.info('You clicked a breadcrumb.');
+  console.info("You clicked a breadcrumb.");
 }
 
-export default function CustomSeparator() {
+export default function CustomSeparator({ location }) {
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
-      MUI
-    </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/material-ui/getting-started/installation/"
-      onClick={handleClick}
-    >
-      Core
-    </Link>,
-    <Typography key="3" color="text.primary">
-      Breadcrumb
-    </Typography>,
+    <HomeIcon />,
+    ...location.filter(el=>el).map((el, i) => (
+      <Link
+        underline="hover"
+        key={"b" + i + el}
+        color="inherit"
+        href="/"
+        onClick={handleClick}
+      >
+        {toTitleCase(el)}
+      </Link>
+    )),
   ];
 
   return (

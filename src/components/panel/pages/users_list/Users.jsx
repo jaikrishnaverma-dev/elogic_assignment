@@ -25,6 +25,8 @@ import CreateGroup, { style } from "./CreateGroup";
 import GroupIcon from "@mui/icons-material/Group";
 import { useSnackbar } from "notistack";
 import { deleteUser } from "../../../../features/mainSlice";
+import { useNavigate } from "react-router-dom";
+import EditUser from "./EditUser";
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -51,7 +53,11 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
 
 export default function Users() {
   const { users, session, groups } = useSelector((data) => data.mainSlice);
+  console.log(users.map(user=>{
+    return {...user,pic:"/default_pic.png"}
+  }));
   const [selection, setSelection] = React.useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
@@ -61,15 +67,29 @@ export default function Users() {
     open: false,
     callback: () => {},
   });
+  const [updateModal, setUpdateModal] = React.useState({
+    open: false,
+    id: -1,
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleGroupOpen = () => setGroupOpen(true);
   const handleGroupClose = () => setGroupOpen(false);
+  const updateClose = () =>
+    setUpdateModal({
+      open: false,
+      id: -1,
+    });
+  const updateOpen = (id) => {
+    setUpdateModal({
+      open: true,
+      id: id,
+    });
+  };
   const confirmationClose = () =>
     setConfirmation({
       message: "",
       open: false,
-      callback: () => {},
     });
   const confirmationOpen = (msg, callback) =>
     setConfirmation({
@@ -84,13 +104,17 @@ export default function Users() {
       variant: "success",
     });
   };
+  const editUser = (e, row) => {
+    e.stopPropagation();
+    updateOpen(row.id);
+  };
   const bulkDelete = () => {
     confirmationOpen("Are You Sure to Delete Selected Users.", () => {
       dispatch(deleteUser({ ids: selection }));
       enqueueSnackbar(`All selected users deleted successfully.`, {
         variant: "success",
       });
-      confirmationClose()
+      confirmationClose();
     });
   };
   const onSelection = (ids) => {
@@ -99,7 +123,6 @@ export default function Users() {
 
   return (
     <>
-      <CustomSeparator />
       <Box sx={{ mt: 2, mb: 1 }}>
         <Stack
           direction={{ xs: "row", sm: "row" }}
@@ -132,7 +155,7 @@ export default function Users() {
             disabled={!selection.length}
             sx={{ mt: 3 }}
             onClick={bulkDelete}
-            startIcon={<GroupAddIcon />}
+            startIcon={<DeleteIcon />}
           >
             Bulk Delete
           </Button>
@@ -188,11 +211,7 @@ export default function Users() {
                     gap: "10px",
                   }}
                 >
-                  <IconButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
+                  <IconButton onClick={(e) => editUser(e, value)}>
                     <EditIcon color="primary" />
                   </IconButton>
                   <IconButton onClick={(e) => singleDelete(e, value)}>
@@ -277,6 +296,12 @@ export default function Users() {
           handleClose={handleClose}
           handleOpen={handleOpen}
         />
+        <EditUser
+          open={updateModal.open}
+          handleClose={updateClose}
+          handleOpen={updateOpen}
+          id={updateModal.id}
+        />
         <CreateGroup
           open={groupOpen}
           handleClose={handleGroupClose}
@@ -288,31 +313,32 @@ export default function Users() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 500,
-}}>
-   <Card sx={{ maxWidth: "100%" }} variant="elevation">
-      <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-        {confirmation.message}
-        </Typography>
-      </CardContent>
-      <CardActions>
-         <Button onClick={confirmationClose}>Close</Button>
-            <Button variant="contained" color="error" onClick={confirmation.callback}>Proceed</Button>
-      </CardActions>
-    </Card>
-        {/* <Card title={confirmation.message} >
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-              {confirmation.message}
-            </Typography>
-            <Button onClick={handleClose}>Close Child Modal</Button>
-            <Button onClick={handleClose}>Close Child Modal</Button>
-        </Card> */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              maxWidth: 500,
+            }}
+          >
+            <Card sx={{ maxWidth: "100%" }} variant="elevation">
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {confirmation.message}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button onClick={confirmationClose}>Close</Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={confirmation.callback}
+                >
+                  Proceed
+                </Button>
+              </CardActions>
+            </Card>
           </Box>
         </Modal>
       </div>

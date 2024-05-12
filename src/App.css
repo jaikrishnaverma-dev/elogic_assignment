@@ -126,3 +126,15 @@
     }
 
 }
+
+.sidebar_element {
+    font-weight: bold;
+}
+
+.sidenav_active {
+    background: #4e67bc;
+}
+
+.sidenav_active>div>div {
+    color: white;
+}

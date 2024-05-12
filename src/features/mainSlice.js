@@ -1,107 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initial_demo_users } from "../utils/tools";
+
 const initialState = {
-  users: [
-    {
-      id: 1034,
-      userName: "jai1034",
-      firstName: "jai",
-      lastName: "verma",
-      email: "jai@gmail.com",
-      password: "123456",
-      role: "admin",
-      group: ["Group1", "Group2"],
-    },
-    {
-      id: 2045,
-      userName: "riya2045",
-      firstName: "riya",
-      lastName: "sharma",
-      email: "riya@example.com",
-      password: "qwerty",
-      role: "user",
-      group: ["Group1"],
-    },
-    {
-      id: 3056,
-      userName: "rahul3056",
-      firstName: "rahul",
-      lastName: "singh",
-      email: "rahul@example.com",
-      password: "password123",
-      role: "user",
-      group: ["Group2", "Group3"],
-    },
-    {
-      id: 4067,
-      userName: "neha4067",
-      firstName: "neha",
-      lastName: "gupta",
-      email: "neha@example.com",
-      password: "letmein",
-      role: "admin",
-      group: ["Group1", "Group3"],
-    },
-    {
-      id: 5078,
-      userName: "amit5078",
-      firstName: "amit",
-      lastName: "kumar",
-      email: "amit@example.com",
-      password: "securepass",
-      role: "user",
-      group: ["Group2"],
-    },
-    {
-      id: 6089,
-      userName: "priya6089",
-      firstName: "priya",
-      lastName: "desai",
-      email: "priya@example.com",
-      password: "mypassword",
-      role: "user",
-      group: ["Group1", "Group2", "Group3"],
-    },
-    {
-      id: 7090,
-      userName: "vijay7090",
-      firstName: "vijay",
-      lastName: "patel",
-      email: "vijay@example.com",
-      password: "password123",
-      role: "admin",
-      group: ["Group3"],
-    },
-    {
-      id: 8001,
-      userName: "sonal8001",
-      firstName: "sonal",
-      lastName: "shah",
-      email: "sonal@example.com",
-      password: "qwerty123",
-      role: "user",
-      group: ["Group2", "Group3"],
-    },
-    {
-      id: 9012,
-      userName: "nisha9012",
-      firstName: "nisha",
-      lastName: "kulkarni",
-      email: "nisha@example.com",
-      password: "letmein123",
-      role: "user",
-      group: ["Group1"],
-    },
-    {
-      id: 1023,
-      userName: "arjun1023",
-      firstName: "arjun",
-      lastName: "kapoor",
-      email: "arjun@example.com",
-      password: "securepassword",
-      role: "admin",
-      group: ["Group1", "Group2", "Group3"],
-    },
-  ],
+  users: initial_demo_users,
   groups: [
     { id: 1, name: "Group1" },
     { id: 2, name: "Group2" },
@@ -121,12 +22,35 @@ const mainSlice = createSlice({
         ? state.users[state.users.length - 1].id + 1
         : 1035;
       state.users.push({
-        ...action.payload,
         id,
         role: "user",
         group: [],
+        pic: "/default_pic.png",
+        ...action.payload,
         userName: action.payload.firstName + id,
       });
+    },
+    logOut(state, action) {
+      state.session = null;
+    },
+    updateUser(state, action) {
+      const { id, updated_details } = action.payload;
+      const index = state.users.findIndex((el) => el.id == id);
+      if (index != -1) {
+        state.users[index] = {
+          ...state.users[index],
+          ...updated_details,
+        };
+      }
+    },
+    updatePic(state, action) {
+  
+      const { pic, id } = action.payload;
+      console.log("update",pic,id);
+      const index = state.users.findIndex((el) => el.id == id);
+      if (index != -1) {
+        state.users[index].pic = pic;
+      }
     },
     setSession(state, action) {
       state.session = action.payload;
@@ -158,5 +82,13 @@ const mainSlice = createSlice({
     },
   },
 });
-export const { registration, setSession, createGroup,deleteUser } = mainSlice.actions;
+export const {
+  registration,
+  updateUser,
+  setSession,
+  createGroup,
+  deleteUser,
+  logOut,
+  updatePic
+} = mainSlice.actions;
 export default mainSlice.reducer;
