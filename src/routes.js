@@ -4,7 +4,10 @@ import EditDetails from "./components/common/UserForm";
 import Profile from "./components/panel/pages/Profile";
 import Users from "./components/panel/pages/users_list/Users";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import NoPage from "./components/common/NoPage";
+import GroupList from "./components/panel/pages/GroupList";
+import GroupsIcon from '@mui/icons-material/Groups';
 export const authroutes = [
   {
     path: "/",
@@ -13,6 +16,10 @@ export const authroutes = [
   {
     path: "signup",
     element: <Signup />,
+  },
+  {
+    path: "*",
+    element: <Login />,
   },
 ];
 
@@ -30,9 +37,22 @@ export const panelChildren = [
     inNav: false,
   },
   {
+    path: "groups",
+    element: <GroupList />,
+    icon: <GroupsIcon />,
+    inNav: true,
+  },
+  {
     path: "profile",
     element: <Profile />,
     icon: <AccountBoxIcon />,
     inNav: true,
+  },
+
+  {
+    path: "*",
+    element: <NoPage />,
+    icon: <AccountBoxIcon />,
+    inNav: false,
   },
 ];

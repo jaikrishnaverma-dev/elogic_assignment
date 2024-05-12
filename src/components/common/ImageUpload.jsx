@@ -65,7 +65,12 @@ const ImageUpload = (props) => {
           <img
             src="/default_pic.png"
             alt="preview"
-            style={{ borderRadius: "50%", width: "100px" }}
+            style={{
+                borderRadius: "50%",
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+              }}
           />
         )}
         <input

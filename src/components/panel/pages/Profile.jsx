@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const { session } = useSelector((data) => data.mainSlice);
-  return <UserForm callBack={() => {}} id={session?.id} />;
+  return <UserForm callBack={() => {}} id={session?.id} forProfile={true}/>;
 };
 
 export default Profile;

@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Autocomplete,
   Checkbox,
@@ -41,7 +40,6 @@ export default function UserForm(props) {
   });
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
@@ -51,7 +49,7 @@ export default function UserForm(props) {
   };
   const handleSubmit = (event) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const { firstName, lastName, email, password } = inputs;
+    const {email, password } = inputs;
     event.preventDefault();
     const nonEmpty = Object.values(inputs).filter((el) => el == "").length == 0;
     if (nonEmpty) {
@@ -81,9 +79,10 @@ export default function UserForm(props) {
             variant: "success",
           });
         }
-        setInputs({
-          ...initialUser,
-        });
+        if (!props?.forProfile)
+          setInputs({
+            ...initialUser,
+          });
 
         if ("callBack" in props) props.callBack();
       }

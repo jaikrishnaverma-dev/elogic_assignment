@@ -14,6 +14,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -109,7 +110,7 @@ export default function Users() {
     updateOpen(row.id);
   };
   const bulkDelete = () => {
-    confirmationOpen("Are You Sure to Delete Selected Users.", () => {
+    confirmationOpen("Are you sure want to delete selected users?", () => {
       dispatch(deleteUser({ ids: selection }));
       enqueueSnackbar(`All selected users deleted successfully.`, {
         variant: "success",
@@ -322,12 +323,14 @@ export default function Users() {
               maxWidth: 500,
             }}
           >
-            <Card sx={{ maxWidth: "100%" }} variant="elevation">
+            <Card sx={{ maxWidth: "100%",p:2 }} variant="elevation">
               <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
+                <div style={{display:"flex",justifyContent:"center",marginBottom:15}}><InfoIcon color="warning" sx={{fontSize:50}}/></div>
+                <Typography gutterBottom variant="h6" component="p" sx={{fontSize:18}}>
                   {confirmation.message}
                 </Typography>
               </CardContent>
+              <hr />
               <CardActions>
                 <Button onClick={confirmationClose}>Close</Button>
                 <Button

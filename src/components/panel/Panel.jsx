@@ -17,18 +17,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Badge, MenuItem } from "@mui/material";
+import { Avatar, Badge, Button, MenuItem } from "@mui/material";
 import useMediaQuery from "../../hooks/useMediaQuery.js";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { panelChildren } from "../../routes.js";
 import { toTitleCase } from "../../utils/tools.js";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { DataGrid } from "@mui/x-data-grid-pro";
 import CustomSeparator from "../common/BreadCrumbs.jsx";
 import { logOut } from "../../features/mainSlice.js";
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 240;
@@ -144,7 +146,18 @@ export default function Panel() {
           handleMenuClose();
         }}
       >
-        Profile
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <AccountBoxIcon/>
+          <p
+            className="abs"
+            style={{
+              fontSize: "16px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            Profile
+          </p>
+        </div>
       </MenuItem>
       <MenuItem
         onClick={() => {
@@ -152,7 +165,18 @@ export default function Panel() {
           handleMenuClose();
         }}
       >
-        LogOut
+     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+     <LogoutIcon/>
+          <p
+            className="abs"
+            style={{
+              fontSize: "16px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            Log Out
+          </p>
+        </div>
       </MenuItem>
     </Menu>
   );
@@ -211,7 +235,6 @@ export default function Panel() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {/* <NewAppBar barProp={{position:"fixed", open:open, color:'transparent'}} MenuIconProps={{sx:{mr: 2, ...(open && {display: 'none'})}}}/> */}
       <AppBar position="fixed" open={open} color="transparent">
         <Toolbar>
           <IconButton
@@ -243,8 +266,9 @@ export default function Panel() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
+            <Button
               size="large"
+              sx={{ marginLeft: 1 }}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -252,8 +276,24 @@ export default function Panel() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
-            </IconButton>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "12px" }}
+              >
+                <Avatar alt={session?.firstName} src={session?.pic} />
+                <p
+                  className="abs"
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    fontFamily: "sans-serif",
+                    display: "flex", alignItems: "center",
+                  }}
+                >
+                  {toTitleCase(session?.firstName + " " + session?.lastName)}
+                  <ArrowDropDownIcon />
+                </p>
+              </div>
+            </Button>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
