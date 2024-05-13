@@ -6,6 +6,14 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import { toTitleCase } from "../../../utils/tools";
+import {
+  Avatar,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,8 +62,9 @@ export default function GroupList() {
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: "50vh",
-        maxHeight: "80vh",
+        justifyContent: "center",
+        height: "70vh",
+        maxHeight: "70vh",
       }}
     >
       <Tabs
@@ -71,8 +80,54 @@ export default function GroupList() {
         ))}
       </Tabs>
       {groups.map((group, index) => (
-        <TabPanel value={value} index={index}>
-          {toTitleCase(group.name)}
+        <TabPanel value={value} index={index} sx={{ width: "100%" }}>
+          Memebers
+          <List
+            sx={{
+              width: "600px",
+              maxWidth: "52vw !important",
+              maxHeight: "70vh",
+              overflowY: "scroll",
+              bgcolor: "background.paper",
+            }}
+          >
+            {users
+              .filter((user) =>
+                user.group.find(
+                  (el) => el.toLowerCase() == group.name.toLowerCase()
+                )
+              )
+              .map((item) => {
+                return (
+                  <>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar alt={item.firstName} src={item.pic} />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={toTitleCase(
+                          item.firstName + " " + item.lastName
+                        )}
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              sx={{ display: "block" }}
+                              component="p"
+                              variant="body2"
+                              color="text.primary"
+                            >
+                              {toTitleCase(item.role)}
+                            </Typography>
+                            {item.email}
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </>
+                );
+              })}
+          </List>
         </TabPanel>
       ))}
     </Box>
