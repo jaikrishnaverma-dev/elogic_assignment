@@ -3,10 +3,11 @@
 This is a React application built for the eLogic company assignment. It utilizes Redux for state management, React Router DOM for navigation, and Material UI for UI design.
 
 ## Screenshots
-<div style="display:flex">
+<div style="display:flex;gap:5px">
 <img src="/public/ss (2).png" width="400px" alt="app screenshot">
 <img src="/public/ss (3).png" width="400px" alt="app screenshot">
 <img src="/public/ss (1).png" width="400px" alt="app screenshot">
+<img src="/public/ss (4).png" width="400px" alt="app screenshot">
 </div>
 
 ## Features
