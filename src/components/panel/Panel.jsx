@@ -126,7 +126,7 @@ export default function Panel() {
   React.useEffect(() => {
     if (session == null) navigate("/");
   }, [session]);
-  
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -381,8 +381,8 @@ export default function Panel() {
       >
         <DrawerHeader>
           <img
-            style={{ height: "60px", width: "80%", margin: "0px 10px" }}
-            src={"/p_logo.png"}
+            style={{ height: "60px", width: "80%", margin: "0px 10px",padding: "6px 0px" }}
+            src={"/logo_2.png"}
             alt=""
           />
           <IconButton onClick={handleDrawerClose}>
