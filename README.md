@@ -3,9 +3,9 @@
 This is a React application built for the eLogic company assignment. It utilizes Redux for state management, React Router DOM for navigation, and Material UI for UI design.
 
 ## Screenshots
-<img src="/public/ss (2).png" alt="visit my linkdin account">
-<img src="/public/ss (3).png" alt="visit my linkdin account">
-<img src="/public/ss (1).png" alt="visit my linkdin account">
+<img src="/public/ss (2).png" width="400px" alt="app screenshot">
+<img src="/public/ss (3).png" width="400px" alt="app screenshot">
+<img src="/public/ss (1).png" width="400px" alt="app screenshot">
 
 ## Features
 
