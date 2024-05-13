@@ -76,6 +76,28 @@ export const columns = [
 ];
 export const initial_demo_users = [
   {
+    id: 1001,
+    userName: "arjun1001",
+    firstName: "arjun",
+    lastName: "virat",
+    email: "arjunvirat@example.com",
+    password: "securepassword",
+    role: "admin",
+    group: ["Group1", "Group2", "Group3"],
+    pic: "/default_pic.png",
+  },
+  {
+    id: 1002,
+    userName: "ram1002",
+    firstName: "ram",
+    lastName: "kapoor",
+    email: "ram@example.com",
+    password: "securepassword",
+    role: "admin",
+    group: ["Group1", "Group2", "Group3"],
+    pic: "/default_pic.png",
+  },
+  {
     id: 1023,
     userName: "arjun1023",
     firstName: "arjun",
