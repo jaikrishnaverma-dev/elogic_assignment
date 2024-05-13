@@ -118,12 +118,15 @@ export default function Panel() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
   React.useEffect(() => {
     setOpen(!isMobile);
   }, [isMobile]);
+
   React.useEffect(() => {
     if (session == null) navigate("/");
   }, [session]);
+  
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -402,7 +405,6 @@ export default function Panel() {
           {panelChildren
             .filter((item) => item.inNav)
             .map((item, index) => (
-              <>
                 <ListItem
                   key={item.path}
                   className={`${
@@ -421,7 +423,7 @@ export default function Panel() {
                     <ListItemText primary={toTitleCase(item.path)} />
                   </ListItemButton>
                 </ListItem>
-              </>
+             
             ))}
         </List>
         <Divider />

@@ -10,7 +10,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import Typography from '@mui/material/Typography';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import SettingsIcon from '@mui/icons-material/Settings';
 export default function Details() {
     const features=[
         {
@@ -22,7 +22,7 @@ export default function Details() {
         {
             icon:<ManageAccountsIcon/>,
             title:"Manage Users",
-            desc:["Create User","Edit User"],
+            desc:["Create User","Edit User","Sort & Filter "],
             color:"warning"
         },
         {
@@ -31,9 +31,9 @@ export default function Details() {
             desc:["Create Group","Group Wise Listing"],
             color:"warning"
         },   {
-            icon:<AssignmentIndIcon/>,
-            title:"Profile",
-            desc:["View","Update"],
+            icon:<SettingsIcon/>,
+            title:"Other",
+            desc:["Profile View","Profile Update","Mobile Responsive"],
             color:"warning"
         }
     ]
@@ -41,7 +41,7 @@ export default function Details() {
     <Timeline position="alternate">
         {
             features.map((feature,index)=>{
-                return       <TimelineItem>
+                return       <TimelineItem key={feature.title}>
                 <TimelineOppositeContent
                   sx={{ m: 'auto 0',color:"#FFFF" }}
                   align="right"
@@ -62,7 +62,7 @@ export default function Details() {
                  {feature.title}
                   </Typography>
                   {
-                    feature.desc.map((desc,i)=> <Typography color={"#FFFF"}>{(i+1)+". "+desc}</Typography>)
+                    feature.desc.map((desc,i)=> <Typography key={"desc"+i} color={"#FFFF"}>{(i+1)+". "+desc}</Typography>)
                   }
                 </TimelineContent>
               </TimelineItem>

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial_demo_users } from "../utils/tools";
-
+/**
+ * initial state for our reducer which is mainSlice
+ */
 const initialState = {
   users: initial_demo_users,
   groups: [
@@ -44,9 +46,7 @@ const mainSlice = createSlice({
       }
     },
     updatePic(state, action) {
-  
       const { pic, id } = action.payload;
-      console.log("update",pic,id);
       const index = state.users.findIndex((el) => el.id == id);
       if (index != -1) {
         state.users[index].pic = pic;
@@ -82,6 +82,10 @@ const mainSlice = createSlice({
     },
   },
 });
+
+/**
+ * here exporting all action of our reducer to use
+ */
 export const {
   registration,
   updateUser,

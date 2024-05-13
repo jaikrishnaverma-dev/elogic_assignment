@@ -1,7 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+/**
+ * Fallback 404 component
+ * @returns 
+ */
 const NoPage = () => {
   const navigate = useNavigate();
   return (

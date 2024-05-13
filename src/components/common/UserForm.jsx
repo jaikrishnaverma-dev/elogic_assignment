@@ -34,22 +34,34 @@ export const initialUser = {
 export default function UserForm(props) {
   const id = props?.id;
   const { users, groups } = useSelector((data) => data.mainSlice);
-  const user = users.find((el) => el.id == id);
+  const user = React.useMemo(() => users.find((el) => el.id == id), []);
   const [inputs, setInputs] = React.useState({
     ...(id ? user : initialUser),
   });
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  /**
+   * save input values on change to state variable
+   * @param {*} e 
+   */
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   };
+  /**
+   * handle image updatation
+   * @param {*} pic image url
+   */
   const onFileSelect = (pic) => {
     setInputs({ ...inputs, ["pic"]: pic });
   };
+  /**
+   * validation and submission handled
+   * @param {*} event 
+   */
   const handleSubmit = (event) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const {email, password } = inputs;
+    const { email, password } = inputs;
     event.preventDefault();
     const nonEmpty = Object.values(inputs).filter((el) => el == "").length == 0;
     if (nonEmpty) {
@@ -194,7 +206,11 @@ export default function UserForm(props) {
               }}
               renderTags={(tagValue, getTagProps) =>
                 tagValue.map((option, index) => (
-                  <Chip label={option} {...getTagProps({ index })} />
+                  <Chip
+                    key={"option" + index + option}
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
                 ))
               }
               renderOption={(props, option, { selected }) => (

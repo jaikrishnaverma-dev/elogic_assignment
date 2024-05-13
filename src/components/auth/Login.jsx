@@ -22,16 +22,24 @@ const defaultTheme = createTheme();
 export default function Login() {
   const navigate = useNavigate();
   const [inputs, setInputs] = React.useState({
-    email: "jai@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
   });
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { users, session } = useSelector((data) => data.mainSlice);
+  /**
+   * to save inputs on Change value
+   * @param {*} e 
+   */
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   };
+  /**
+   * form validation and submission handled here
+   * @param {*} event 
+   */
   const handleSubmit = (event) => {
     const { email, password } = inputs;
     event.preventDefault();
@@ -61,9 +69,13 @@ export default function Login() {
     }
   };
 
+  /**
+   * if session is exist then navigate to user listing page
+   */
   React.useEffect(() => {
     if (session != null) navigate("/user_management/users");
   }, [session]);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -123,6 +135,7 @@ export default function Login() {
                   fullWidth
                   id="email"
                   label="Email Address"
+                  placeholder="jai@gmail.com"
                   name="email"
                   autoComplete="email"
                   value={inputs.email}
@@ -133,6 +146,7 @@ export default function Login() {
                   margin="normal"
                   required
                   fullWidth
+                  placeholder="123456"
                   name="password"
                   label="Password"
                   id="password"

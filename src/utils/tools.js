@@ -1,5 +1,10 @@
 import { Avatar } from "@mui/material";
 
+/**
+ * 
+ * @param {*} str string
+ * @returns titalCase of that string
+ */
 export function toTitleCase(str) {
   return str
     .split("_")
@@ -10,6 +15,9 @@ export function toTitleCase(str) {
     })
     .join(" ");
 }
+/**
+ * Colors for Groups
+ */
 const lightColors = [
   "#FFF9C4", // Light yellow
   "#D7FFFE", // Light cyan
@@ -17,9 +25,17 @@ const lightColors = [
   "#D9F7BE", // Light green
   "#E2E2F9", // Light blue
 ];
+/**
+ * 
+ * @param {*} id number
+ * @returns color hexcode 
+ */
 export function getColorById(id) {
   return lightColors[parseInt(id % 4)];
 }
+/**
+ * user table Data grid header columns  
+ */
 export const columns = [
   { field: "id", headerName: "ID", width: 90, type: "number" },
   {

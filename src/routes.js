@@ -10,6 +10,9 @@ import GroupList from "./components/panel/pages/GroupList";
 import GroupsIcon from '@mui/icons-material/Groups';
 import Info from '@mui/icons-material/Info';
 import About from "./components/common/About";
+/**
+ * Pre Login routes
+ */
 export const authroutes = [
   {
     path: "/",
@@ -25,6 +28,9 @@ export const authroutes = [
   },
 ];
 
+/**
+ * Post login routes i designed is as we can map is in our sidebar as well as pass to the react router
+ */
 export const panelChildren = [
   {
     path: "users",

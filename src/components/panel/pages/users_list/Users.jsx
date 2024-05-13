@@ -14,20 +14,21 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { columns, getColorById, toTitleCase } from "../../../../utils/tools";
-import CustomSeparator from "../../../common/BreadCrumbs";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CreateUser from "./CreateUser";
 import CreateGroup, { style } from "./CreateGroup";
 import GroupIcon from "@mui/icons-material/Group";
 import { useSnackbar } from "notistack";
 import { deleteUser } from "../../../../features/mainSlice";
-import { useNavigate } from "react-router-dom";
 import EditUser from "./EditUser";
+/**
+ * when no user exist this style work
+ */
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -54,11 +55,7 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
 
 export default function Users() {
   const { users, session, groups } = useSelector((data) => data.mainSlice);
-  console.log(users.map(user=>{
-    return {...user,pic:"/default_pic.png"}
-  }));
   const [selection, setSelection] = React.useState([]);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
@@ -72,32 +69,39 @@ export default function Users() {
     open: false,
     id: -1,
   });
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const handleGroupOpen = () => setGroupOpen(true);
-  const handleGroupClose = () => setGroupOpen(false);
-  const updateClose = () =>
-    setUpdateModal({
-      open: false,
-      id: -1,
-    });
-  const updateOpen = (id) => {
+  const handleOpen = React.useCallback(() => setOpen(true), []);
+  const handleClose = React.useCallback(() => setOpen(false), []);
+  const handleGroupOpen = React.useCallback(() => setGroupOpen(true), []);
+  const handleGroupClose = React.useCallback(() => setGroupOpen(false), []);
+  const updateClose = React.useCallback(
+    () =>
+      setUpdateModal({
+        open: false,
+        id: -1,
+      }),
+    []
+  );
+  const updateOpen = React.useCallback((id) => {
     setUpdateModal({
       open: true,
       id: id,
     });
-  };
-  const confirmationClose = () =>
-    setConfirmation({
-      message: "",
-      open: false,
-    });
-  const confirmationOpen = (msg, callback) =>
+  }, []);
+  const confirmationClose = React.useCallback(
+    () =>
+      setConfirmation({
+        message: "",
+        open: false,
+      }),
+    []
+  );
+  const confirmationOpen = React.useCallback((msg, callback) =>
     setConfirmation({
       message: msg,
       open: true,
       callback: callback,
-    });
+    }),[]);
+    
   const singleDelete = (e, row) => {
     e.stopPropagation();
     dispatch(deleteUser({ ids: [row.id] }));
@@ -167,7 +171,6 @@ export default function Users() {
           maxHeight: "80vh",
           height: "75vh",
           maxWidth: "90vw",
-        
         }}
       >
         <DataGrid
@@ -321,14 +324,27 @@ export default function Users() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width:500,
-              maxWidth:"calc(100vw - 40px)",
+              width: 500,
+              maxWidth: "calc(100vw - 40px)",
             }}
           >
-            <Card sx={{ maxWidth: "100%",p:2 }} variant="elevation">
+            <Card sx={{ maxWidth: "100%", p: 2 }} variant="elevation">
               <CardContent>
-                <div style={{display:"flex",justifyContent:"center",marginBottom:15}}><InfoIcon color="warning" sx={{fontSize:50}}/></div>
-                <Typography gutterBottom variant="h6" component="p" sx={{fontSize:18}}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: 15,
+                  }}
+                >
+                  <InfoIcon color="warning" sx={{ fontSize: 50 }} />
+                </div>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="p"
+                  sx={{ fontSize: 18 }}
+                >
                   {confirmation.message}
                 </Typography>
               </CardContent>

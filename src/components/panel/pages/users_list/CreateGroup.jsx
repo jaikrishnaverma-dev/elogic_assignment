@@ -6,11 +6,6 @@ import {
   Button,
   Checkbox,
   Chip,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -36,7 +31,7 @@ export const style = {
 };
 
 export default function CreateGroup({ open, handleClose }) {
-  const { users, session, groups } = useSelector((data) => data.mainSlice);
+  const { users, groups } = useSelector((data) => data.mainSlice);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [inputs, setInputs] = React.useState({
@@ -137,7 +132,7 @@ export default function CreateGroup({ open, handleClose }) {
             }}
             renderTags={(tagValue, getTagProps) =>
               tagValue.map((option, index) => (
-                <Chip label={option.firstName} {...getTagProps({ index })} />
+                <Chip  label={option.firstName} {...getTagProps({ index })} />
               ))
             }
             renderOption={(props, option, { selected }) => (
