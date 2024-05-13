@@ -29,7 +29,7 @@ This is a React application built for the eLogic company assignment. It utilizes
 
 ## Installation
 
-1. Clone the repository: `git clone [https://github.com/your-repo-url.git](https://github.com/jaikrishnaverma-dev/elogic_assignment.git)`
+1. Clone the repository: `git clone https://github.com/jaikrishnaverma-dev/elogic_assignment.git`
 2. Navigate to the project directory: `cd elogic_assignment`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
