@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import InfoIcon from '@mui/icons-material/Info';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
@@ -131,6 +132,7 @@ export default function Panel() {
         vertical: "bottom",
         horizontal: "right",
       }}
+      sx={{top:"40px",minWidth:"300px"}}
       id={menuId}
       keepMounted
       transformOrigin={{
@@ -141,13 +143,14 @@ export default function Panel() {
       onClose={handleMenuClose}
     >
       <MenuItem
+        sx={{minWidth:150,py:1}}
         onClick={() => {
           navigate("/user_management/profile");
           handleMenuClose();
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <AccountBoxIcon/>
+        <AccountBoxIcon color="primary"/>
           <p
             className="abs"
             style={{
@@ -160,13 +163,34 @@ export default function Panel() {
         </div>
       </MenuItem>
       <MenuItem
+        sx={{minWidth:150,py:1}}
+        onClick={() => {
+          navigate('/user_management/about')
+          handleMenuClose();
+        }}
+      >
+     <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+     <InfoIcon color="info"/>
+          <p
+            className="abs"
+            style={{
+              fontSize: "16px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            About
+          </p>
+        </div>
+      </MenuItem>
+      <MenuItem
+      sx={{minWidth:150,py:1}}
         onClick={() => {
           dispatch(logOut());
           handleMenuClose();
         }}
       >
      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-     <LogoutIcon/>
+     <LogoutIcon color="error"/>
           <p
             className="abs"
             style={{
@@ -219,23 +243,46 @@ export default function Panel() {
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+      <Button
+              size="large"
+              sx={{ marginLeft: 1 }}
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                <Avatar alt={session?.firstName} src={session?.pic} />
+                <p
+                  className="abs"
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    fontFamily: "sans-serif",
+                    display: "flex", alignItems: "center",
+                    textTransform: "capitalize",
+                    gap: "5px"
+                  }}
+                >
+                  <div style={{ display: "flex",flexDirection:"column", alignItems: "center",justifyContent:"center",lineHeight:1.2 }}>
+                  <p className="abs" >{toTitleCase(session?.firstName + " " + session?.lastName)}</p>
+                  <small style={{fontWeight:400,width:"100%",display:"block",textAlign:"start"}}>{session?.role}</small>
+                  </div>
+                  <ArrowDropDownIcon />
+                </p>
+              </div>
+            </Button>
       </MenuItem>
     </Menu>
   );
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color="transparent">
+      <AppBar position="fixed" open={open} color="inherit" variant="outlined">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -277,7 +324,7 @@ export default function Panel() {
               color="inherit"
             >
               <div
-                style={{ display: "flex", alignItems: "center", gap: "12px" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
               >
                 <Avatar alt={session?.firstName} src={session?.pic} />
                 <p
@@ -287,9 +334,14 @@ export default function Panel() {
                     fontWeight: 600,
                     fontFamily: "sans-serif",
                     display: "flex", alignItems: "center",
+                    textTransform: "capitalize",
+                    gap: "5px"
                   }}
                 >
-                  {toTitleCase(session?.firstName + " " + session?.lastName)}
+                  <div style={{ display: "flex",flexDirection:"column", alignItems: "center",justifyContent:"center",lineHeight:1.2 }}>
+                  <p className="abs" >{toTitleCase(session?.firstName + " " + session?.lastName)}</p>
+                  <small style={{fontWeight:400,width:"100%",display:"block",textAlign:"start"}}>{session?.role}</small>
+                  </div>
                   <ArrowDropDownIcon />
                 </p>
               </div>

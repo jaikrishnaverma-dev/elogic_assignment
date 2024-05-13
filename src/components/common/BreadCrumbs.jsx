@@ -28,7 +28,8 @@ export default function CustomSeparator({ location }) {
   ];
 
   return (
-    <Stack spacing={2}>
+   <div style={{marginBottom:"10px"}}>
+     <Stack spacing={2}>
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
@@ -36,5 +37,6 @@ export default function CustomSeparator({ location }) {
         {breadcrumbs}
       </Breadcrumbs>
     </Stack>
+   </div>
   );
 }

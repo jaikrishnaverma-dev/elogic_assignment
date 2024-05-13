@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import About from "../common/About";
+import Details from "../common/Details";
 
 const CubeAnimation = () => {
   return (
@@ -20,7 +21,9 @@ const CubeAnimation = () => {
         </ul>
       </div>
       <div style={{position:"absolute",top:"50%", left:"50%",  transform: "translate(-50%, -50%)",}}>
-       <img src="/vector_ui2.png" height={500} alt="" />
+       <h2 style={{color:"#FFFF",textAlign:"center"}} className="abs">E-logic Assignment</h2>
+       <code style={{color:"#FFFF",textAlign:"center",display:"block"}}>By Jai Krishna verma</code>
+       <Details/>
       </div>
     </Grid>
   );

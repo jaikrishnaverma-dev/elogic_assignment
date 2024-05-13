@@ -166,7 +166,8 @@ export default function Users() {
         style={{
           maxHeight: "80vh",
           height: "75vh",
-          maxWidth: "calc(100% - 10px)",
+          maxWidth: "90vw",
+        
         }}
       >
         <DataGrid
@@ -320,7 +321,8 @@ export default function Users() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              maxWidth: 500,
+              width:500,
+              maxWidth:"calc(100vw - 40px)",
             }}
           >
             <Card sx={{ maxWidth: "100%",p:2 }} variant="elevation">

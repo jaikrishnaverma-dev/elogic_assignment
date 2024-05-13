@@ -138,3 +138,8 @@
 .sidenav_active>div>div {
     color: white;
 }
+@media only screen and (max-width: 600px) {
+    .cube-animation {
+      display: none;
+    }
+  }

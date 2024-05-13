@@ -8,6 +8,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import NoPage from "./components/common/NoPage";
 import GroupList from "./components/panel/pages/GroupList";
 import GroupsIcon from '@mui/icons-material/Groups';
+import Info from '@mui/icons-material/Info';
+import About from "./components/common/About";
 export const authroutes = [
   {
     path: "/",
@@ -48,7 +50,12 @@ export const panelChildren = [
     icon: <AccountBoxIcon />,
     inNav: true,
   },
-
+  {
+    path: "about",
+    element: <About />,
+    icon: <Info />,
+    inNav: true,
+  },
   {
     path: "*",
     element: <NoPage />,
